@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import {Alert, StyleSheet, TextInput, View} from "react-native";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import {Colors} from "@/constants/Colors";
+import Title from "@/components/ui/Title";
+import Card from "@/components/ui/Card";
+import InstructionText from "@/components/ui/InstructionText";
 
 interface StartGameScreenProps {
     onPickNumber: (pickedNumber: number) => void;
@@ -34,24 +37,28 @@ const StartGameScreen = ({onPickNumber}: StartGameScreenProps) => {
     }
 
     return (
-        <View style={styles.inputContainer}>
-            <TextInput
-                style={styles.inputNumber}
-                maxLength={2}
-                keyboardType="number-pad"
-                autoCapitalize='none'
-                autoCorrect={false}
-                onChangeText={numberInputHandler}
-                value={enteredNumber}
-            />
-            <View style={styles.buttonsContainer}>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton pressHandler={resetHandler}>리셋</PrimaryButton>
+        <View style={styles.rootContainer}>
+            <Title title='숫자 맞추기 게임'></Title>
+            <Card>
+                <InstructionText>숫자를 입력해주세요!</InstructionText>
+                <TextInput
+                    style={styles.inputNumber}
+                    maxLength={2}
+                    keyboardType="number-pad"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    onChangeText={numberInputHandler}
+                    value={enteredNumber}
+                />
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton pressHandler={resetHandler}>리셋</PrimaryButton>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton pressHandler={confirmInputHandler}>시작</PrimaryButton>
+                    </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton pressHandler={confirmInputHandler}>시작</PrimaryButton>
-                </View>
-            </View>
+            </Card>
         </View>
     );
 };
@@ -59,14 +66,10 @@ const StartGameScreen = ({onPickNumber}: StartGameScreenProps) => {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
-    inputContainer: {
-        backgroundColor: Colors.primary800,
-        marginHorizontal: 24,
-        marginTop: 100,
-        padding: 16,
-        borderRadius: 8,
-        elevation: 4,
-        alignItems: 'center'
+    rootContainer: {
+        flex: 1,
+        marginTop: 80,
+        alignItems: 'center',
     },
     inputNumber: {
         width: 50,
